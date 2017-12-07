@@ -146,7 +146,7 @@ void KalmanFilter::Update(measurement z, int index){
 	0.0, 0.0, varspeed, 0.0,
 	0.0, 0.0, 0.0, varyaw*varyaw;
   
-  if (diffds_(index) > 0) {
+  /*if (diffds_(index) > 0) {
 	JH << 100, 0.0, 0.0, 0.0, 0.0,
 	      0.0, 100, 0.0, 0.0, 0.0,
     	      0.0, 0.0, 0.0, 0.1, 0.0,
@@ -156,7 +156,11 @@ void KalmanFilter::Update(measurement z, int index){
 	      0.0, 0.0, 0.0, 0.0, 0.0,
 	      0.0, 0.0, 0.0, 1.0, 0.0,
 	      0.0, 0.0, 0.0, 0.0, 1.0; 
-  }
+  } */
+  JH << 50, 0.0, 0.0, 0.0, 0.0,
+        0.0, 50, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 1.0;
   MatrixXd S = MatrixXd(4,4);
   S = JH*P_*JH.transpose() + R_;
   MatrixXd K = MatrixXd(4,5);
@@ -173,12 +177,13 @@ void KalmanFilter::Update(measurement z, int index){
   cout << "y: " << y << endl; 
 
   mu_ = mu_ + K*y;
-  //cout << "mu_ after: " << mu_ << endl;
+  cout << " K: " << K << endl;
+  cout << "mu_ after: " << mu_ << endl;
  
   MatrixXd I = MatrixXd::Identity(5,5);
  // cout << "P_: " << P_ << endl; 
   P_ = (I - (K*JH))*P_;
-  //cout << "P_: after " << P_ << endl;
+  cout << "P_: after " << P_ << endl;
 }
 
 

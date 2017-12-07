@@ -165,14 +165,21 @@ int main(int argc, char* argv[]) {
        k_vel = k_vel + 1;
        Kalman.mu_[3] = velocity_data[k_vel];
      }
-     /*if (i % 10 == 0) {
-	k_gps = k_gps + 1;
+     if (i % 20 == 0) {
+        cout << "i: " << i << endl;
+  	k_gps = k_gps + 1;
+        cout << "k_gps: " << k_gps << endl;
+        cout << "gps_data[k_gps].x" << gps_data[k_gps].x << endl;
         meas_line.x = gps_data[k_gps].x; 
         meas_line.y = gps_data[k_gps].y;
         meas_line.v = velocity_data[k_vel];
         meas_line.yaw_rate = yaw_rate[i];
-          
-     }*/
+        Kalman.Update(meas_line, k_gps);    
+        cout << "After update: " << endl;
+        cout << "Kalman.mu_[0]: " << Kalman.mu_[0] << endl; 
+    }
+     cout << "i: " << i << endl;
+     cout << "Kalman.mu_[0]: " << Kalman.mu_[0] << endl;
      out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[0] << "\t";
      out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[1] << "\t";
      out_file_ << Kalman.mu_[2] << "\t";
