@@ -157,14 +157,22 @@ int main(int argc, char* argv[]) {
  
  
   for (int i=1; i<yaw_rate.size(); ++i){
+     Kalman.mu_[3] = velocity_data[k_vel];
+     Kalman.mu_[4] = yaw_rate[i];
+     Kalman.Predict();
      if (i % 3 == 0) {
        //cout << "k_vel: " << k_vel << endl; 
        k_vel = k_vel + 1;
        Kalman.mu_[3] = velocity_data[k_vel];
      }
-     Kalman.mu_[3] = velocity_data[k_vel];
-     Kalman.mu_[4] = yaw_rate[i];
-     Kalman.Predict();
+     /*if (i % 10 == 0) {
+	k_gps = k_gps + 1;
+        meas_line.x = gps_data[k_gps].x; 
+        meas_line.y = gps_data[k_gps].y;
+        meas_line.v = velocity_data[k_vel];
+        meas_line.yaw_rate = yaw_rate[i];
+          
+     }*/
      out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[0] << "\t";
      out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[1] << "\t";
      out_file_ << Kalman.mu_[2] << "\t";
