@@ -139,20 +139,6 @@ int main(int argc, char* argv[]) {
 
  
   measurement meas_line; 	
- // for (int i =0; i<gps_data.size(); ++i) { 
- //	Kalman.Predict();
-  //      meas_line.x = Kalman.mx_[i];
- //	meas_line.y= Kalman.my_[i];
-//	meas_line.v = gps_data[i].speed/3.6;
-//	meas_line.yaw_rate = gps_data[i].yawrate/180.0*M_PI;
-//	Kalman.Update(meas_line,i);
- //       out_file_ << Kalman.mu_[0] << "\t";
-//	out_file_ << Kalman.mu_[1] << "\t";
-//	out_file_ << Kalman.mu_[2] << "\t";
-//	out_file_ << Kalman.mu_[3] << "\t";
-//	out_file_ << Kalman.mu_[4] << "\n";	
- // }
-//  out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << gps_data[i].lat << "\t";
   cout << "size of gps data: " << gps_data.size() << endl;
   int k_gps=0;
   int k_vel=0;
@@ -170,7 +156,7 @@ int main(int argc, char* argv[]) {
   out_file_ << Kalman.mu_[4] << "\n";
  
  
-/*  for (int i=1; i<yaw_rate.size(); ++i){
+  for (int i=1; i<yaw_rate.size(); ++i){
      if (i % 3 == 0) {
        //cout << "k_vel: " << k_vel << endl; 
        k_vel = k_vel + 1;
@@ -184,74 +170,8 @@ int main(int argc, char* argv[]) {
      out_file_ << Kalman.mu_[2] << "\t";
      out_file_ << Kalman.mu_[3] << "\t";
      out_file_ << Kalman.mu_[4] << "\n";
-  } */ 
+  } 
 
-/*
-  Kalman.TransfGPS(gps_data);
-  for (int i=1; i<yaw_rate.size(); ++i){
-     Kalman.mu_[4] = yaw_rate[i];
-     Kalman.Predict();
-     if (i % 3 == 0) {
-       cout << "k_vel: " << k_vel;
-       k_vel = k_vel + 1;
-       Kalman.mu_[3] = velocity_data[k_vel];
-     }
-     if (i % 10 == 0) {
-       k_gps = k_gps + 1;
-       cout << "k_gps: " << k_gps << endl;
-       meas_line.x = gps_data[k_gps].x;
-       meas_line.y = gps_data[k_gps].y;
-       meas_line.v = velocity_data[k_vel];
-       meas_line.yaw_rate = yaw_rate[i];
-       Kalman.Update(meas_line, k_gps);
-     }  
-     out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[0] << "\t";
-     out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[1] << "\t";
-     out_file_ << Kalman.mu_[2] << "\t";
-     out_file_ << Kalman.mu_[3] << "\t";
-     out_file_ << Kalman.mu_[4] << "\n";
-  } */ 
-//  Kalman.TransfGPS(gps_data);
-  for (int i=1; i<yaw_rate.size(); ++i){
-  //for (int i=1; i<1000; ++i){
-     if (i % 30 == 0) {
-       k_vel = k_vel + 1;
-       Kalman.mu_[3] = velocity_data[k_vel];
-       Kalman.Predict();
-       out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[0] << "\t";
-       out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[1] << "\t";
-       out_file_ << Kalman.mu_[2] << "\t";
-       out_file_ << Kalman.mu_[3] << "\t";
-       out_file_ << Kalman.mu_[4] << "\n";
-       }
-     else if (i % 100 == 0) {
-       k_gps = k_gps + 1; 
-       meas_line.x = Kalman.mu_[0];
-       meas_line.y = Kalman.mu_[1];
-       meas_line.v = velocity_data[k_vel];
-       meas_line.yaw_rate = yaw_rate[i]/180.0*M_PI; 
-       Kalman.Predict();  
-       meas_line.x = Kalman.mx_[k_gps];
-       meas_line.y = Kalman.my_[k_gps];
-       meas_line.v = velocity_data[k_vel];
-       meas_line.yaw_rate = yaw_rate[i]/180.0*M_PI;
-       Kalman.Update(meas_line,k_gps);
-       out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[0] << "\t";
-       out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[1] << "\t";
-       out_file_ << Kalman.mu_[2] << "\t";
-       out_file_ << Kalman.mu_[3] << "\t";
-       out_file_ << Kalman.mu_[4] << "\n";
-    }	   
-    else
-      cout <<  "i :" << i << endl;
-      Kalman.Predict();
-      out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[0] << "\t";
-      out_file_ << std::setprecision(std::numeric_limits<double>::digits10 + 2) << Kalman.mu_[1] << "\t";
-      out_file_ << Kalman.mu_[2] << "\t";
-      out_file_ << Kalman.mu_[3] << "\t";
-      out_file_ << Kalman.mu_[4] << "\n";
-    }       
-  }
  
 // close files
   if (out_file_.is_open()) {
