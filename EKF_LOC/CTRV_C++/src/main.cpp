@@ -170,7 +170,7 @@ int main(int argc, char* argv[]) {
   out_file_ << Kalman.mu_[4] << "\n";
  
  
-/*  for (int i=1; i<yaw_rate.size(); ++i){
+  for (int i=1; i<yaw_rate.size(); ++i){
      if (i % 3 == 0) {
        //cout << "k_vel: " << k_vel << endl; 
        k_vel = k_vel + 1;
@@ -184,7 +184,7 @@ int main(int argc, char* argv[]) {
      out_file_ << Kalman.mu_[2] << "\t";
      out_file_ << Kalman.mu_[3] << "\t";
      out_file_ << Kalman.mu_[4] << "\n";
-  } */ 
+  }  
 
 /*
   Kalman.TransfGPS(gps_data);
@@ -212,7 +212,7 @@ int main(int argc, char* argv[]) {
      out_file_ << Kalman.mu_[4] << "\n";
   } */ 
 //  Kalman.TransfGPS(gps_data);
-  for (int i=1; i<yaw_rate.size(); ++i){
+/*  for (int i=1; i<yaw_rate.size(); ++i){
   //for (int i=1; i<1000; ++i){
      if (i % 30 == 0) {
        k_vel = k_vel + 1;
@@ -252,7 +252,7 @@ int main(int argc, char* argv[]) {
       out_file_ << Kalman.mu_[4] << "\n";
     }       
   }
- 
+ */
 // close files
   if (out_file_.is_open()) {
     out_file_.close();
